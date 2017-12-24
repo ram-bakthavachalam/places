@@ -16,7 +16,8 @@ MongoClient.connect(db.url, (err, database) => {
 	  city: '',
 	  state: 'California',
 	  country: 'United States',
-	  zipcode: ''
+	  zipcode: '',
+	  imageUrl: 'https://secure.parksandresorts.wdpromedia.com/media/disneyparks/blog/wp-content/uploads/2017/04/gmfdlp3895793.jpg'
 	});
 	places.add({ 
 	  name: 'Disneyland', 
@@ -26,7 +27,8 @@ MongoClient.connect(db.url, (err, database) => {
 	  city: '',
 	  state: 'California',
 	  country: 'United States',
-	  zipcode: ''
+	  zipcode: '',
+	  imageUrl: 'https://secure.parksandresorts.wdpromedia.com/media/disneyparks/blog/wp-content/uploads/2017/04/gmfdlp3895793.jpg'
 	});
 	places.add({ 
 	  name: 'Golden Gate Bridge', 
@@ -36,7 +38,8 @@ MongoClient.connect(db.url, (err, database) => {
 	  city: '',
 	  state: 'California',
 	  country: 'United States',
-	  zipcode: ''
+	  zipcode: '',
+	  imageUrl: 'https://secure.parksandresorts.wdpromedia.com/media/disneyparks/blog/wp-content/uploads/2017/04/gmfdlp3895793.jpg'
 	});
 	places.add({ 
 	  name: 'Lake Tahoe', 
@@ -46,7 +49,8 @@ MongoClient.connect(db.url, (err, database) => {
 	  city: '',
 	  state: 'California',
 	  country: 'United States',
-	  zipcode: ''
+	  zipcode: '',
+	  imageUrl: 'https://secure.parksandresorts.wdpromedia.com/media/disneyparks/blog/wp-content/uploads/2017/04/gmfdlp3895793.jpg'
 	});
 	for(let place of places){
 		// Validate before creating
@@ -56,17 +60,25 @@ MongoClient.connect(db.url, (err, database) => {
 		    console.log({'error':'An error has occurred'});
 		  } else {
 		    if(item){
-		      console.log("Place already exists in the system wiht id :: "+item._id);
+		    	const updateDetails = { 'name': place.name };
+			    console.log("Place already exists in the system wiht id :: "+item._id+" Hence updating..");
+			    database.collection('places').update(updateDetails, place, (err, result) => {
+			      if (err) {
+			          console.log({'error':'An error has occurred'});
+			      } else {
+			          console.log(place);
+			      } 
+			    });
 		    }
 		    else{
 		    	console.log(place)
 		      	database.collection('places').insert(place, (err, result) => {
-		        if (err) { 
-		          console.log({ 'error': 'An error has occurred' }); 
-		        } else {
-		          console.log(result.ops[0]);
-		        }
-		      });
+			        if (err) { 
+			          console.log({ 'error': 'An error has occurred' }); 
+			        } else {
+			          console.log(result.ops[0]);
+			        }
+			      });
 		    }
 		  }
 		});
