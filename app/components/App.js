@@ -51,7 +51,7 @@ class Tiles extends Component {
   render() {
 
   	return (
-  		    <div className="flex-container">
+  		    <div className={styles.flexContainer}>
   		        {this.state.items.map(item => 
   		        	<Tile  name={item.name} shortDescription={item.shortdescription} crowdRank={item.crowdrank} img={item.imageUrl}/>)
   		        }
